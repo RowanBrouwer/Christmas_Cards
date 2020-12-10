@@ -19,6 +19,17 @@
         document.getElementById("CardText").value = value
     }
 
+    function ChangeFont() {
+        var style = document.getElementById("FontSelect").value
+        if (style == 0) {
+            document.getElementById("CardText").style = "font-family:'Times New Roman', Times, serif"
+        }
+        else if (style == 1) {
+            document.getElementById("CardText").style = "font-family:'Comic Sans MS'"
+        }
+        
+    }
+
 
 
 </script>
@@ -58,7 +69,7 @@
             </div>
             <div class="col-sm" style="text-align:right">
                 Select Font<br />
-                <select asp-for="FontType" asp-items="Html.GetEnumSelectList<FontType>()"> </select>
+                <select asp-for="FontType" asp-items="Html.GetEnumSelectList<FontType>()" id="FontSelect" onchange="ChangeFont()"> </select>
                 <br />
                 <br />
                 <br />
@@ -86,8 +97,7 @@
         background-color: rgba(0, 0, 0, 0);
         border: none;
         outline: none;
-        position: absolute;
-        
+        position: absolute; 
         top: 100px;
         z-index: -1;
     }
