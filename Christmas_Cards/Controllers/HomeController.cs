@@ -35,26 +35,27 @@ namespace Christmas_Cards.Controllers
             return View();
         }
 
-        //Include = "Id,FirstName,InFix,LastName,Wage"
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind()] CardModel cardModel)
+        public ActionResult Index([Bind()] CardModel cardModel, string New)
         {
-
             cardModel.Image.ImagePath = cardModel.Image.ImagePath.Remove(0, 23);
-
             cardModel.Image = db.Images.FirstOrDefault(i => i.ImagePath.EndsWith(cardModel.Image.ImagePath));
-
             
             if (ModelState.IsValid)
-            { 
-                
+            {                 
                 db.Cards.Add(cardModel);
                 db.SaveChanges();
-                return RedirectToAction("Privacy");
+                if (!string.IsNullOrEmpty(New))
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    return View("Privacy");
+                }                
             }
-
             return View("Index");
         }
 

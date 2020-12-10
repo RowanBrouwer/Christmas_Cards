@@ -71,7 +71,8 @@
                 @Html.HiddenFor(Model => Model.Image.ImagePath, new { id = "DataUrl" })
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Opslaan" class="btn btn-default" />
+                        <input type="submit" value="Nieuwe Kaart" name="New" class="btn btn-primary" />
+                        <input type="submit" value="Naar E-mail" class="btn btn-info" />
                     </div>
                 </div>
             </div>
@@ -85,5 +86,9 @@
         background-color: rgba(0, 0, 0, 0);
         border: none;
         outline: none;
+        position: absolute;
+        
+        top: 100px;
+        z-index: -1;
     }
 </style>
