@@ -1,0 +1,63 @@
+﻿@{
+    
+    ViewData["Title"] = "Home Page";
+}
+@model CardModel
+
+<script type="text/javascript">
+
+    function ChangeImage(url) {        
+        document.getElementById("main").src = url;
+    }
+
+    function textInput(value) {
+        document.getElementById("CardText").value = value
+    }
+
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Christmas Card generator(tm)</h1>
+</div>
+
+<br /><br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <img src="~/Images/1.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="~/Images/2.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+            <br /><br />
+            <img src="~/Images/3.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="~/Images/4.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+            <br /><br />
+            <img src="~/Images/5.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="~/Images/6.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
+        </div>
+        <div class="col-sm" style="text-align:center">
+            <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
+            <input type="text" id="CardText" value="" disabled="disabled" style="text-align:center;"/>
+        </div>
+        <div class="col-sm" style="text-align:right">
+            Select Font<br />
+            <select asp-for="Fonttype" asp-items="Html.GetEnumSelectList<fonttype>()"> </select>
+            <br />
+            <br />
+            <br />
+            Text on card<br />
+            <input type="text" id="InputText" asp-for="Message" onkeyup="textInput(value)" onchange="textInput(value)"/>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #CardText {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+    }
+</style>
