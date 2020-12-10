@@ -1,12 +1,16 @@
 ﻿@{
-    
+
     ViewData["Title"] = "Home Page";
 }
 @model CardModel
 
+@{
+    ViewBag.Title = "Create";
+}
+
 <script type="text/javascript">
 
-    function ChangeImage(url) {        
+    function ChangeImage(url) {
         document.getElementById("main").src = url;
     }
 
@@ -20,38 +24,53 @@
     <h1 class="display-4">Welcome to the Christmas Card generator(tm)</h1>
 </div>
 
-<br /><br />
+<br />
+<br />
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <img src="~/Images/1.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="~/Images/2.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-            <br /><br />
-            <img src="~/Images/3.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="~/Images/4.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-            <br /><br />
-            <img src="~/Images/5.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="~/Images/6.jpg" width="100" height="140" onclick="ChangeImage(src)"/>
-        </div>
-        <div class="col-sm" style="text-align:center">
-            <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
-            <input type="text" id="CardText" value="" disabled="disabled" style="text-align:center;"/>
-        </div>
-        <div class="col-sm" style="text-align:right">
-            Select Font<br />
-            @*<select asp-for="Fonttype" asp-items="Html.GetEnumSelectList<fonttype>()"> </select>*@
-            <br />
-            <br />
-            <br />
-            Text on card<br />
-            <input type="text" id="InputText" asp-for="Message" onkeyup="textInput(value)" onchange="textInput(value)"/>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <img src="~/Images/1.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="~/Images/2.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+                <br /><br />
+                <img src="~/Images/3.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="~/Images/4.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+                <br /><br />
+                <img src="~/Images/5.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="~/Images/6.jpg" width="100" height="140" onclick="ChangeImage(src)" />
+            </div>
+            <div class="col-sm" style="text-align:center">
+                <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
+                <input type="text" id="CardText" value="" disabled="disabled" style="text-align:center;" />
+            </div>
+            <div class="col-sm" style="text-align:right">
+                Select Font<br />
+                <select asp-for="FontType" asp-items="Html.GetEnumSelectList<FontType>()"> </select>
+                <br />
+                <br />
+                <br />
+                Text on card<br />
+                <input type="text" id="InputText" asp-for="Message" onkeyup="textInput(value)" onchange="textInput(value)" />
+                <br />
+                <br />
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Opslaan" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
 
 
 <style>
