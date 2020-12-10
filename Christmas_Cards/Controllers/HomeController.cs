@@ -40,7 +40,7 @@ namespace Christmas_Cards.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind()] CardModel cardModel)
         {
-            cardModel.Image = db.Images.FirstOrDefault(i => i.Id == 1);
+            //cardModel.Image = db.Images.FirstOrDefault(i => i.Id == 1);
             if (ModelState.IsValid)
             { 
                 
