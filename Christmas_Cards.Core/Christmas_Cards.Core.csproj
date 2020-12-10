@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Christmas_Cards</RootNamespace>
+    <AssemblyName>Christmas_Cards.Core</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

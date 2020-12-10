@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChristmasCards.Models
+namespace Christmas_Cards.Models
 {
     public class CardModel
     {

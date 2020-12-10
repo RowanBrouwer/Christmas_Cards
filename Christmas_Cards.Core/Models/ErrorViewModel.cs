@@ -1,6 +1,6 @@
 using System;
 
-namespace ChristmasCards.Models
+namespace Christmas_Cards.Models
 {
     public class ErrorViewModel
     {

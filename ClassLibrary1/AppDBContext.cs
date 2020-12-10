@@ -1,10 +1,10 @@
-﻿using ChristmasCards.Models;
+﻿using Christmas_Cards.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChristmasCards.DAL
+namespace Christmas_Cards.DAL
 {
     public class AppDBContext : DbContext
     {
