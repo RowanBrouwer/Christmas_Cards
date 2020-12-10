@@ -26,7 +26,8 @@ namespace Christmas_Cards.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            CardModel cm = new CardModel { Image = new Images(), Emails = new List<EmailModel>()};
+            return View(cm);
         }
 
         public IActionResult Privacy()
@@ -40,7 +41,12 @@ namespace Christmas_Cards.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind()] CardModel cardModel)
         {
-            //cardModel.Image = db.Images.FirstOrDefault(i => i.Id == 1);
+
+            cardModel.Image.ImagePath = cardModel.Image.ImagePath.Remove(0, 23);
+
+            cardModel.Image = db.Images.FirstOrDefault(i => i.ImagePath.EndsWith(cardModel.Image.ImagePath));
+
+            
             if (ModelState.IsValid)
             { 
                 

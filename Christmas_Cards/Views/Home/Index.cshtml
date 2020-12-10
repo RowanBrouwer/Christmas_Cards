@@ -12,13 +12,18 @@
 
     function ChangeImage(url) {
         document.getElementById("main").src = url;
+        document.getElementById("DataUrl").value = url;
     }
 
     function textInput(value) {
         document.getElementById("CardText").value = value
     }
 
+
+
 </script>
+
+
 
 <div class="text-center">
     <h1 class="display-4">Welcome to the Christmas Card generator(tm)</h1>
@@ -62,7 +67,8 @@
                 <br />
                 <br />
                 <br />
-                @Html.HiddenFor(model => model.Image)
+                @Html.HiddenFor(Model => Model.Image)
+                @Html.HiddenFor(Model => Model.Image.ImagePath, new { id = "DataUrl" })
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Opslaan" class="btn btn-default" />
