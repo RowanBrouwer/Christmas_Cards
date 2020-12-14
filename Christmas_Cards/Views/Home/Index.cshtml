@@ -21,25 +21,26 @@
 
     function textSize() {
         var size = document.getElementById("InputSize").value
-        document.getElementById("CardDiv").style = "font-size:"+ size + "vw"
+        document.getElementById("CardText").style = "font-size:" + size + "vw; ; color:inherit; "
     }
+
+    function ChangeColour(colour) {
+        document.getElementById("CardColor").style = "color:"+ colour
+    }
+
 
     function ChangeFont() {
         var style = document.getElementById("FontSelect").value
         if (style == 0) {
-            document.getElementById("CardText").style = "font-family:'Times New Roman', Times, serif"
+            document.getElementById("CardDiv").style = "font-family:'Times New Roman', Times, serif"
         }
         else if (style == 1) {
-            document.getElementById("CardText").style = "font-family:'Comic Sans MS'"
+            document.getElementById("CardDiv").style = "font-family:'Comic Sans MS'"
         }
-        else if( style == 2) {
-            document.getElementById("CardText").style = "font-family:'Christmas Bell - Personal Use'"
-        }
-        
+        else {
+            document.getElementById("CardDiv").style = "font-family:'Christmas Bell - Personal Use'"
+        }        
     }
-
-
-
 </script>
 
 
@@ -71,9 +72,13 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="~/Images/6.jpg" width="100" height="140" onclick="ChangeImage(src)" />
             </div>
-            <div class="col-sm"id="CardDiv" style="font-size:4vw">
+            <div class="col-sm" style="text-align:center">
                 <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
-                <input type="text" id="CardText" value="" disabled="disabled" />
+                <div id="CardDiv" style="font-family:'Christmas Bell - Personal Use'">
+                    <div id="CardColor" style="color:#f6b73c">
+                        <input type="text" id="CardText" value="" readonly style="font-size:4vw; color:inherit"/>
+                    </div>
+                </div>                
             </div>
             <div class="col-sm" style="text-align:right">
                 Select Font<br />
@@ -95,6 +100,11 @@
                     <option value="10">70</option>
 
                 </select>
+                <br />
+                <br />
+                <br />
+                Color of text<br />
+                <input type="color" id="color" name="color" value="#6e0d2c" oninput="ChangeColour(value)">
                 <br />
                 <br />
                 <br />
@@ -122,8 +132,12 @@
         background-color: rgba(0, 0, 0, 0);
         border: none;
         outline: none;
-        position: absolute; 
-        top: 100px;
-        z-index: -1;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        top: 20%;
+        left: 50%;
+        /*z-index: -1;*/
     }
 </style>
