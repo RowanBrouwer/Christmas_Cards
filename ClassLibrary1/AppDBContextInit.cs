@@ -82,7 +82,7 @@ namespace Christmas_Cards.DAL
                 {
                     CardModel card1 = new CardModel()
                     {
-                        FontType = FontType.IOnlyKnow2FontTypes,
+                        FontType = FontType.Cursive,
                         Message = "Hello from the organised side",
                         Emails = TempEmails,
                         Image = db.Images.FirstOrDefault(i => i.Id == 2),

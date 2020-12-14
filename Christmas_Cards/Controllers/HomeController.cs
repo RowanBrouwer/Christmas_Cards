@@ -114,17 +114,17 @@ namespace Christmas_Cards.Controllers
             stream.Position = 0;
 
             // Sending the email
-            Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
-            using (SmtpClient smtp = new SmtpClient($"{}"))
-            {
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress("X-Mas-Cards@gmail.com");
-                message.To.Add($"{PersonalMail.Email}");
-                message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
-                message.Attachments.Add(file);
-                message.IsBodyHtml = false;
-                smtp.Send(message);
-            }
+            //Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
+            //using (SmtpClient smtp = new SmtpClient($"{}"))
+            //{
+            //    MailMessage message = new MailMessage();
+            //    message.From = new MailAddress("X-Mas-Cards@gmail.com");
+            //    message.To.Add($"{PersonalMail.Email}");
+            //    message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
+            //    message.Attachments.Add(file);
+            //    message.IsBodyHtml = false;
+            //    smtp.Send(message);
+            //}
             
         }
     }
