@@ -22,6 +22,8 @@ namespace Christmas_Cards.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly AppDBContext db;
+
+        public List<CardModel> cardslist = new List<CardModel>();
         
 
         public HomeController(ILogger<HomeController> logger, AppDBContext db) 
@@ -48,9 +50,11 @@ namespace Christmas_Cards.Controllers
         {
             cardModel.Image.ImagePath = cardModel.Image.ImagePath.Remove(0, 23);
             cardModel.Image = db.Images.FirstOrDefault(i => i.ImagePath.EndsWith(cardModel.Image.ImagePath));
+            int fonSize = cardModel.FontSize;
             
             if (ModelState.IsValid)
-            {                 
+            {
+                cardslist.Add(cardModel);
                 db.Cards.Add(cardModel);
                 db.SaveChanges();
                 if (!string.IsNullOrEmpty(New))
