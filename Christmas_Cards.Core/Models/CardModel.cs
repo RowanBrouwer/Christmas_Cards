@@ -27,6 +27,6 @@ namespace Christmas_Cards.Models
     {
         Times_New_Roman,
         Comic_Sans,
-        IOnlyKnow2FontTypes
+        Cursive
     }
 }
