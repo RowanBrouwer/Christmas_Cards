@@ -59,7 +59,7 @@ namespace Christmas_Cards.Controllers
                 }
                 else
                 {
-                    return View("Privacy");
+                    return View("Email");
                 }                
             }
             return View("Index");
