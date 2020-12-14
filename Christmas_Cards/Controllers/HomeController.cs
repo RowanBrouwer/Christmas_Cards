@@ -50,7 +50,7 @@ namespace Christmas_Cards.Controllers
         {
             cardModel.Image.ImagePath = cardModel.Image.ImagePath.Remove(0, 23);
             cardModel.Image = db.Images.FirstOrDefault(i => i.ImagePath.EndsWith(cardModel.Image.ImagePath));
-            int fonSize = cardModel.FontSize;
+           
             
             if (ModelState.IsValid)
             {
