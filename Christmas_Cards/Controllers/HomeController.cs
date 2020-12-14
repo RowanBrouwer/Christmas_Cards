@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Christmas_Cards.Controllers
@@ -39,27 +40,38 @@ namespace Christmas_Cards.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void ConvertToPdf()
+        public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font, Color color)
         {
+            // Converting string to memorystream
+            byte[] imgpth = Encoding.ASCII.GetBytes(Card.Image.ImagePath.Remove(0, 23));
+            MemoryStream imgStream = new MemoryStream(imgpth);
+
+            // converting string to memorystream
+            byte[] Fontpth = Encoding.ASCII.GetBytes(Font);
+            MemoryStream FontStream = new MemoryStream(Fontpth);
+
+            //creating new Pdf file and page.
             PdfDocument document = new PdfDocument();
 
             PdfPage page = document.Pages.Add();
 
-            PdfBitmap image = new PdfBitmap($"{}");
+            PdfBitmap image = new PdfBitmap(imgStream);
 
             PdfGraphicsState state = page.Graphics.Save();
 
-            page.Graphics.SetTransparency(0.2f);
+            // drawing the picture on the background of the Pdf
+            page.Graphics.SetTransparency(0.0f);
 
             page.Graphics.DrawImage(image, new PointF(0,0), new SizeF(page.GetClientSize().Width, page.GetClientSize().Height));
 
             page.Graphics.Restore(state);
 
-            PdfFont font = new PdfTrueTypeFont($"{}");
+            // creating the brush and font type for the text
+            PdfFont font = new PdfTrueTypeFont(FontStream, 0,0);
 
-            PdfSolidBrush brush = new PdfSolidBrush($"{}");
+            PdfSolidBrush brush = new PdfSolidBrush(color);
 
-            page.Graphics.DrawString($"{}", font, brush, new PointF(0,0));
+            page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0,0));
 
             MemoryStream stream = new MemoryStream();
 
@@ -69,13 +81,14 @@ namespace Christmas_Cards.Controllers
 
             stream.Position = 0;
 
-            Attachment file = new Attachment(stream, $"{}", $"{}");
+            // Sending the email
+            Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
             using (SmtpClient smtp = new SmtpClient($"{}"))
             {
                 MailMessage message = new MailMessage();
                 message.From = new MailAddress("X-Mas-Cards@gmail.com");
-                message.To.Add("");
-                message.Subject = "Some one send you an X-Mas Card!";
+                message.To.Add($"{PersonalMail.Email}");
+                message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
                 message.Attachments.Add(file);
                 message.IsBodyHtml = false;
                 smtp.Send(message);
