@@ -23,8 +23,6 @@ namespace Christmas_Cards.Models
         [Required]
         public string LastName { get; set; }
 
-        public EmailModel Card { get; set; }
-
         public string FullName() => (MiddelName == null) ? $"{FirstName}{LastName}" : $"{FirstName}{MiddelName}{LastName}";
 
     }
