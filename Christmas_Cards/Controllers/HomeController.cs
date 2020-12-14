@@ -13,7 +13,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Christmas_Cards.DAL;
-
+using System.Net;
 
 namespace Christmas_Cards.Controllers
 {
@@ -78,12 +78,14 @@ namespace Christmas_Cards.Controllers
 
         public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font, Color color)
         {
+            string FontAdd = $"{Font}.ttf";
+
             // Converting string to memorystream
             byte[] imgpth = Encoding.ASCII.GetBytes(Card.Image.ImagePath.Remove(0, 23));
             MemoryStream imgStream = new MemoryStream(imgpth);
 
             // converting string to memorystream
-            byte[] Fontpth = Encoding.ASCII.GetBytes(Font);
+            byte[] Fontpth = Encoding.ASCII.GetBytes(FontAdd);
             MemoryStream FontStream = new MemoryStream(Fontpth);
 
             //creating new Pdf file and page.
@@ -107,7 +109,7 @@ namespace Christmas_Cards.Controllers
 
             PdfSolidBrush brush = new PdfSolidBrush(color);
 
-            page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0,0));
+            page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0, 0));
 
             MemoryStream stream = new MemoryStream();
 
@@ -118,18 +120,18 @@ namespace Christmas_Cards.Controllers
             stream.Position = 0;
 
             // Sending the email
-            //Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
-            //using (SmtpClient smtp = new SmtpClient($"{}"))
-            //{
-            //    MailMessage message = new MailMessage();
-            //    message.From = new MailAddress("X-Mas-Cards@gmail.com");
-            //    message.To.Add($"{PersonalMail.Email}");
-            //    message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
-            //    message.Attachments.Add(file);
-            //    message.IsBodyHtml = false;
-            //    smtp.Send(message);
-            //}
-            
+            Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
+            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com") { Port = 587, Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#"), EnableSsl = true })
+            {
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("emailservicewebservice@gmail.com");
+                message.To.Add($"{PersonalMail.Email}");
+                message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
+                message.Attachments.Add(file);
+                message.IsBodyHtml = false;
+                message.Body = "Someone send you an anonymous christmascard!" + Environment.NewLine + $"Hope you enjoy {PersonalMail.FullName()}";
+                smtp.Send(message);
+            }
         }
     }
 }
