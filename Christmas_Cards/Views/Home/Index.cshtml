@@ -7,7 +7,6 @@
 @{
     ViewBag.Title = "Create";
 }
-
 <script type="text/javascript">
 
     function load() {
@@ -92,13 +91,13 @@
                     <br />
                     <br />
                     Size of Text<br />
-                    <select id="InputSize" asp-for="FontSize" onchange="textSize()">                        
+                    <select id="InputSize" asp-for="FontSize" onchange="textSize()">
                         <option value="25">20</option>
                         <option value="40">30</option>
                         <option value="50">40</option>
-                        <option value="66"selected>50</option>
+                        <option value="66" selected>50</option>
                         <option value="80">60</option>
-                        <option value="90" >70</option>
+                        <option value="90">70</option>
                         <option value="106">80</option>
                         <option value="120">90</option>
                         <option value="133">100</option>
@@ -133,17 +132,17 @@
     }
 </body>
 
-        <style>
-            #CardText {
-                background-color: rgba(0, 0, 0, 0);
-                border: none;
-                outline: none;
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                transform: translate(-50%, -50%);
-                top: 10%;
-                left: 50%;
-                /*z-index: -1;*/
-            }
-        </style>
+<style>
+    #CardText {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        top: 10%;
+        left: 50%;
+        /*z-index: -1;*/
+    }
+</style>

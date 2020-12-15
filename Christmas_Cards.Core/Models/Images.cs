@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Christmas_Cards.Models
 {
+    [Serializable]
     public class Images
     {
         [Key]

@@ -15,6 +15,7 @@ namespace Christmas_Cards
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,7 +26,19 @@ namespace Christmas_Cards
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddHttpContextAccessor();
 
             services.AddDbContextPool<AppDBContext>(options =>
             {
@@ -52,6 +65,8 @@ namespace Christmas_Cards
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             AppDBContextInit.Seed(db);
 

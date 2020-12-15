@@ -14,6 +14,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Christmas_Cards.DAL;
 using System.Net;
+using Microsoft.AspNetCore.Http;
+using System.Web;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Christmas_Cards.Controllers
 {
@@ -24,12 +27,16 @@ namespace Christmas_Cards.Controllers
         private readonly AppDBContext db;
 
         public List<CardModel> cardslist = new List<CardModel>();
-        
 
-        public HomeController(ILogger<HomeController> logger, AppDBContext db) 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
+
+        public HomeController(ILogger<HomeController> logger, AppDBContext db, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             this.db = db;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
@@ -54,16 +61,30 @@ namespace Christmas_Cards.Controllers
             
             if (ModelState.IsValid)
             {
+                if (_session.Keys.Count() > 0)
+                {
+                    foreach (var key in _session.Keys)
+                    {
+                        cardslist.Add((CardModel)ByteArrayWorks.ByteArrayToObject(_session.Get($"{key}")));
+                    }
+                }
+
                 cardslist.Add(cardModel);
                 db.Cards.Add(cardModel);
                 db.SaveChanges();
+
+                foreach (var card in cardslist)
+                {
+                    _session.Set($"{card.Id}", ByteArrayWorks.ObjectToByteArray(card));
+                }
+
                 if (!string.IsNullOrEmpty(New))
                 {
-                    return View("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View("Email");
+                    return View("Email", cardslist);
                 }                
             }
             return View("Index");
@@ -76,9 +97,18 @@ namespace Christmas_Cards.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Email()
+        {
+            return View("Email");
+        }
+
         public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font, Color color)
         {
             string FontAdd = $"{Font}.ttf";
+
+            string tempPt = Card.FontSize.ToString().Remove(0 , 2);
+
+            int FontPt = int.Parse(tempPt);
 
             // Converting string to memorystream
             byte[] imgpth = Encoding.ASCII.GetBytes(Card.Image.ImagePath.Remove(0, 23));
@@ -105,7 +135,7 @@ namespace Christmas_Cards.Controllers
             page.Graphics.Restore(state);
 
             // creating the brush and font type for the text
-            PdfFont font = new PdfTrueTypeFont(FontStream, 0,0);
+            PdfFont font = new PdfTrueTypeFont(FontStream, FontPt);
 
             PdfSolidBrush brush = new PdfSolidBrush(color);
 
@@ -132,6 +162,8 @@ namespace Christmas_Cards.Controllers
                 message.Body = "Someone send you an anonymous christmascard!" + Environment.NewLine + $"Hope you enjoy {PersonalMail.FullName()}";
                 smtp.Send(message);
             }
+
+            
         }
     }
 }
