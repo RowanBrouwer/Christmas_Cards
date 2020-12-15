@@ -28,10 +28,20 @@ namespace Christmas_Cards.Models
 
     public enum FontType
     {
-        Times_New_Roman,
-        Comic_Sans,
+        [Display(Name = "The Perfect Christmas")]
         the_perfect_christmas,
-        Christmas_Bell
+        [Display(Name = "Christmas Bell's")]
+        Christmas_Bell,
+        [Display(Name = "Christmas Lights")]
+        ChristmasLightsOutdoor,
+        [Display(Name = "Holly and Berries")]
+        holly_and_berries,
+        [Display(Name = "Merry Christmas Flakes")]
+        MerryChristmasFlake,
+        [Display(Name = "Christmas Font")]
+        PWChristmasfont,
+        [Display(Name = "Happy Christmas")]
+        PWHappyChristmas
 
     }
 

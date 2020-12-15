@@ -38,16 +38,25 @@
     function ChangeFont() {
         var style = document.getElementById("FontSelect").value
         if (style == 0) {
-            document.getElementById("CardDiv").style = "font-family:'Times New Roman', Times, serif"
+            document.getElementById("CardDiv").style = "font-family:'ThePerfectChristmas'"
         }
         else if (style == 1) {
-            document.getElementById("CardDiv").style = "font-family:'Comic Sans MS'"
+            document.getElementById("CardDiv").style = "font-family:'ChristmasBellPersonalUse'"
         }
         else if (style == 2) {
-            document.getElementById("CardDiv").style = "font-family:'The Perfect Christmas'"
+            document.getElementById("CardDiv").style = "font-family:'ChristmasLightsOutdoor'"
+        }
+        else if (style == 3) {
+            document.getElementById("CardDiv").style = "font-family:'holly_and_berries'"
+        }
+        else if (style == 4) {
+            document.getElementById("CardDiv").style = "font-family:'MerryChristmasFlake'"
+        }
+        else if (style == 5) {
+            document.getElementById("CardDiv").style = "font-family:'PWChristmasfont'"
         }
         else {
-            document.getElementById("CardDiv").style = "font-family:'Christmas Bell - Personal Use'"
+            document.getElementById("CardDiv").style = "font-family:'PWHappyChristmas'"
         }
     }
 </script>
@@ -82,8 +91,8 @@
                     <img src="~/Images/6.jpg" width="100" height="140" onclick="ChangeImage(src)" />
                 </div>
                 <div class="col-sm" style="text-align:center">
-                    <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
-                    <div id="CardDiv" style="font-family:'Christmas Bell - Personal Use'">
+                    <img id="main" src="~/Images/1.jpg" width="350" height="490" />
+                    <div id="CardDiv" style="font-family: 'ThePerfectChristmas' ">
                         @*<div id="CardColor" style="color:#6e0d2c">
                             <input type="text" id="CardText2" value="" readonly style="font-size:66px; color:inherit" />
                         </div>*@

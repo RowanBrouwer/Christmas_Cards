@@ -59,15 +59,5 @@ namespace Christmas_Cards.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Christmas_Bell___Personal_Use {
-            get {
-                object obj = ResourceManager.GetObject("Christmas_Bell___Personal_Use", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

@@ -6,15 +6,16 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Christmas Bell - Personal Use.otf" />
+    <Content Remove="wwwroot\Resources\Christmas Bell - Personal Use.otf" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Christmas Bell - Personal Use.otf" />
+    <EmbeddedResource Include="wwwroot\fonts\ChristmasBellPersonalUse.otf" />
+    <EmbeddedResource Include="wwwroot\Resources\Christmas Bell - Personal Use.otf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Christmas Bell - Personal Use.otf" />
-    <EmbeddedResource Include="wwwroot\Christmas Bell - Personal Use.otf" />
+    <None Include="wwwroot\fonts\ChristmasBellPersonalUse.otf" />
   </ItemGroup>
 
   <ItemGroup>
