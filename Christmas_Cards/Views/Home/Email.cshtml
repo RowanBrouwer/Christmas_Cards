@@ -1,8 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
+    ViewData["Title"] = "Email Page";
 }
-<h1>
-Email Page
-</h1>
+@model IEnumerable<CardModel> 
+
+    @{
+        ViewBag.Title = "Email";
+    }
+
+    @foreach (var card in Model)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-sm" style="text-align:right">
+                    <img src=card.Image.ImagePath width="100" height="140" />
+                </div>
+                <div class="col-sm" style="text-align:left">
+                    <input type="text" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <input type="submit" value="verstuur kaarten" name="New" class="btn btn-primary" />

@@ -23,7 +23,7 @@ namespace Christmas_Cards.Controllers
 
         private readonly AppDBContext db;
 
-        public List<CardModel> cardslist = new List<CardModel>();
+       // public List<CardModel> cardslist = new List<CardModel>();
         
 
         public HomeController(ILogger<HomeController> logger, AppDBContext db) 
@@ -43,7 +43,11 @@ namespace Christmas_Cards.Controllers
             return View();
         }
 
-        
+        public IActionResult Email()
+        {
+            return View(db.Cards.ToList());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind()] CardModel cardModel, string New)
@@ -54,7 +58,7 @@ namespace Christmas_Cards.Controllers
             
             if (ModelState.IsValid)
             {
-                cardslist.Add(cardModel);
+                //cardslist.Add(cardModel);
                 db.Cards.Add(cardModel);
                 db.SaveChanges();
                 if (!string.IsNullOrEmpty(New))
@@ -63,11 +67,12 @@ namespace Christmas_Cards.Controllers
                 }
                 else
                 {
-                    return View("Email");
+                    return RedirectToAction("Email");
                 }                
             }
             return View("Index");
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

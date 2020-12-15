@@ -5,11 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Christmas Bell - Personal Use.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Christmas Bell - Personal Use.otf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Christmas Bell - Personal Use.otf" />
+    <EmbeddedResource Include="wwwroot\Christmas Bell - Personal Use.otf" />
   </ItemGroup>
 
   <ItemGroup>
