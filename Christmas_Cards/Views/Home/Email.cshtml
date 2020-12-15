@@ -8,6 +8,7 @@
         ViewBag.Title = "Email";
     }
 
+
     @foreach (var card in Model)
     {
         <div class="container">
@@ -15,13 +16,13 @@
                 <div class="col-sm" style="text-align:right">
                     <img src="@card.Image.ImagePath" width="100" height="140" />
                 </div>
-                <div class="col-sm" style="text-align:left">
-                    <textarea></textarea>
+                <div id="div @card.Id" class="col-sm" style="text-align:left">
+
                 </div>
                 <div class="col-sm" style="text-align:left">
                     add Email Adress
                     <input type="text" />
-                    <input type="button" value="add email"class="btn btn-info" />
+                    <input type="button" id="@card.Id" value="add email" class="btn btn-info" function="addEmail()" />
                 </div>
             </div>
         </div>

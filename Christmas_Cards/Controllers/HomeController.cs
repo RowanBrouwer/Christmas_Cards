@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Christmas_Cards.DAL;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace Christmas_Cards.Controllers
 {
@@ -45,7 +46,8 @@ namespace Christmas_Cards.Controllers
 
         public IActionResult Email()
         {
-            return View(db.Cards.ToList());
+
+            return View(db.Cards.Include(t => t.Image).ToList());
         }
 
         [HttpPost]
