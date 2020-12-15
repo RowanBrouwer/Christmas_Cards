@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Christmas_Cards.Models
 {
+    [Serializable]
     public class EmailModel
     {
         [Key]

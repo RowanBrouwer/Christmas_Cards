@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Christmas_Cards.Models
 {
+    [Serializable]
     public class CardModel
     {
         [Key]
@@ -24,6 +26,7 @@ namespace Christmas_Cards.Models
 
         //public Music { get; set; }
         public ICollection<EmailModel> Emails { get; set; }
+
     }
 
     public enum FontType
