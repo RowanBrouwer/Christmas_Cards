@@ -5,7 +5,7 @@
 @model CardModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Home";
 }
 
 <script type="text/javascript">
@@ -21,11 +21,12 @@
 
     function textInput(value) {
         document.getElementById("CardText").value = value
+        document.getElementById("CardText2").value = value
     }
 
     function textSize() {
         var size = document.getElementById("InputSize").value
-        document.getElementById("CardText").style = "font-size:" + size + "px; ; color:inherit; "
+        document.getElementById("CardText").style = "font-size:" + size + "px; ; color:inherit; font-family:inherit"
     }
 
     function ChangeColour(colour) {
@@ -41,6 +42,9 @@
         }
         else if (style == 1) {
             document.getElementById("CardDiv").style = "font-family:'Comic Sans MS'"
+        }
+        else if (style == 2) {
+            document.getElementById("CardDiv").style = "font-family:'The Perfect Christmas'"
         }
         else {
             document.getElementById("CardDiv").style = "font-family:'Christmas Bell - Personal Use'"
@@ -80,8 +84,11 @@
                 <div class="col-sm" style="text-align:center">
                     <img id="main" src="~/Images/WhiteSpace.jpg" width="350" height="490" />
                     <div id="CardDiv" style="font-family:'Christmas Bell - Personal Use'">
+                        @*<div id="CardColor" style="color:#6e0d2c">
+                            <input type="text" id="CardText2" value="" readonly style="font-size:66px; color:inherit" />
+                        </div>*@
                         <div id="CardColor" style="color:#6e0d2c">
-                            <input type="text" id="CardText" value="" readonly style="font-size:4vw; color:inherit" />
+                            <input type="text" id="CardText" value="" readonly style="font-size:66px; color:inherit; font-family:inherit" />
                         </div>
                     </div>
                 </div>
@@ -92,13 +99,13 @@
                     <br />
                     <br />
                     Size of Text<br />
-                    <select id="InputSize" asp-for="FontSize" onchange="textSize()">                        
+                    <select id="InputSize" asp-for="FontSize" onchange="textSize()">
                         <option value="25">20</option>
                         <option value="40">30</option>
                         <option value="50">40</option>
-                        <option value="66"selected>50</option>
+                        <option value="66" selected>50</option>
                         <option value="80">60</option>
-                        <option value="90" >70</option>
+                        <option value="90">70</option>
                         <option value="106">80</option>
                         <option value="120">90</option>
                         <option value="133">100</option>
@@ -133,17 +140,33 @@
     }
 </body>
 
-        <style>
-            #CardText {
-                background-color: rgba(0, 0, 0, 0);
-                border: none;
-                outline: none;
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                transform: translate(-50%, -50%);
-                top: 10%;
-                left: 50%;
-                /*z-index: -1;*/
-            }
-        </style>
+<style>
+    #CardText {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        top: 10%;
+        left: 50%;
+        /*font-family:tim*/
+        /*z-index: -1;*/
+    }
+</style>
+
+@*<style>
+    #CardText2 {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        top: 11%;
+        left: 49%;
+        /*z-index: -1;*/
+    }
+</style>*@

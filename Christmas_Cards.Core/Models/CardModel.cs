@@ -30,7 +30,9 @@ namespace Christmas_Cards.Models
     {
         Times_New_Roman,
         Comic_Sans,
-        Cursive
+        the_perfect_christmas,
+        Christmas_Bell
+
     }
 
 

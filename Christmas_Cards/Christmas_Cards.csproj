@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Christmas Bell - Personal Use.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Christmas Bell - Personal Use.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +32,21 @@
   <ItemGroup>
     <ProjectReference Include="..\Christmas_Cards.Core\Christmas_Cards.Core.csproj" />
     <ProjectReference Include="..\ClassLibrary1\Christmas_Cards.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
