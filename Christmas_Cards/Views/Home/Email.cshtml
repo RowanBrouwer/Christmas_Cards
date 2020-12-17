@@ -9,6 +9,26 @@
     }
 
 
+<script type="text/javascript">
+   
+
+    function addEmail() {
+        var wut = "wut";
+        console.log(wut);
+        //var label = document.createElement('label')
+        //label.setAttribute("id", "label " + counter)
+        //console.log('counter:', counter);
+        //counter++;
+        //var email = document.getElementById("email " + identivier).value
+        //console.log('email:', email);
+        //label.setAttribute("value", email)
+        //console.log('identivier:', identivier)
+        //document.getElementById("div "+identivier).appendChild(label)
+    }
+
+</script>
+
+
     @foreach (var card in Model)
     {
         <div class="container">
@@ -21,11 +41,14 @@
                 </div>
                 <div class="col-sm" style="text-align:left">
                     add Email Adress
-                    <input type="text" />
+                    <input type="text" id="email @card.Id" />
                     <input type="button" id="@card.Id" value="add email" class="btn btn-info" function="addEmail()" />
                 </div>
             </div>
         </div>
     }
+    
+     <input type="button" value="add email" class="btn btn-info" function="addEmail()" />
+    
 
     <input type="submit" value="verstuur kaarten" name="New" class="btn btn-primary" />

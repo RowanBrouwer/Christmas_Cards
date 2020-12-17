@@ -10,12 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\fonts\ChristmasBellPersonalUse.otf" />
     <EmbeddedResource Include="wwwroot\Resources\Christmas Bell - Personal Use.otf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\fonts\ChristmasBellPersonalUse.otf" />
   </ItemGroup>
 
   <ItemGroup>

@@ -71,37 +71,36 @@ body {
 }
 
 @font-face {
-    font-family: 'ChristmasBellPersonalUse';
-    src: local('../fonts/ChristmasBellPersonalUse.otf'), url('../fonts/ChristmasBellPersonalUse.otf');
-
+    font-family: 'christmabet';
+    src: local('../fonts/christmabet.ttf'), url('../fonts/christmabet.ttf');
 }
 
 @font-face {
     font-family: 'ThePerfectChristmas';
-    src: local('../fonts/ThePerfectChristmas.otf'), url('../fonts/ThePerfectChristmas.ttf');
+    src: local('../fonts/ThePerfectChristmas.ttf'), url('../fonts/ThePerfectChristmas.ttf');
 }
 
 @font-face {
     font-family: 'ChristmasLightsOutdoor';
-    src: local('../fonts/ChristmasLightsOutdoor.otf'), url('../fonts/ChristmasLightsOutdoor.ttf');
+    src: local('../fonts/ChristmasLightsOutdoor.ttf'), url('../fonts/ChristmasLightsOutdoor.ttf');
 }
 
 @font-face {
     font-family: 'holly_and_berries';
-    src: local('../fonts/holly_and_berries.otf'), url('../fonts/holly_and_berries.ttf');
+    src: local('../fonts/holly_and_berries.ttf'), url('../fonts/holly_and_berries.ttf');
 }
 
 @font-face {
     font-family: 'MerryChristmasFlake';
-    src: local('../fonts/MerryChristmasFlake.otf'), url('../fonts/MerryChristmasFlake.ttf');
+    src: local('../fonts/MerryChristmasFlake.ttf'), url('../fonts/MerryChristmasFlake.ttf');
 }
 
 @font-face {
     font-family: 'PWChristmasfont';
-    src: local('../fonts/PWChristmasfont.otf'), url('../fonts/PWChristmasfont.ttf');
+    src: local('../fonts/PWChristmasfont.ttf'), url('../fonts/PWChristmasfont.ttf');
 }
 
 @font-face {
     font-family: 'PWHappyChristmas';
-    src: local('../fonts/PWHappyChristmas.otf'), url('../fonts/PWHappyChristmas.ttf');
+    src: local('../fonts/PWHappyChristmas.ttf'), url('../fonts/PWHappyChristmas.ttf');
 }

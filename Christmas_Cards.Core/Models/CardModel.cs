@@ -30,8 +30,8 @@ namespace Christmas_Cards.Models
     {
         [Display(Name = "The Perfect Christmas")]
         the_perfect_christmas,
-        [Display(Name = "Christmas Bell's")]
-        Christmas_Bell,
+        [Display(Name = "Christmabet")]
+        christmabet,
         [Display(Name = "Christmas Lights")]
         ChristmasLightsOutdoor,
         [Display(Name = "Holly and Berries")]
