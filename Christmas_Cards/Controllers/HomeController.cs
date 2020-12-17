@@ -66,18 +66,26 @@ namespace Christmas_Cards.Controllers
         }
 
         [HttpPost]
-        public IActionResult Email([Bind()] List<CardModel> Cards, List<EmailModel> MailList)
+        public IActionResult Email(List<EmailModel> mails)
         {
             if (_session.Keys.Count() > 0)
             {
-                foreach (var card in Cards)
+                foreach (var key in _session.Keys)
                 {
-                    foreach (var email in MailList)
-                    {
-                        var Fontvalue = card.FontType.GetType();
-                        string FontValueString = $"~/fonts/{Fontvalue}";
+                    cardslist.Add((CardModel)ByteArrayWorks.ByteArrayToObject(_session.Get($"{key}")));
+                }
+            }
+
+            if (_session.Keys.Count() > 0)
+            {
+                foreach (var card in cardslist)
+                {
+                    //foreach (var email in MailList)
+                    //{
+                        EmailModel email = new EmailModel { Email = "brouwerrowan@gmail.com", FirstName = "Rowan", LastName = "Brouwer" };
+                        string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                         ConvertToPdf(card, email, FontValueString);
-                    }
+                    //}
                 }
             }
             return View();
@@ -116,7 +124,7 @@ namespace Christmas_Cards.Controllers
                 }
                 else
                 {
-                    return View("Email");
+                    return RedirectToAction("Email");
                 }                
             }
             return View("Index");
@@ -138,8 +146,12 @@ namespace Christmas_Cards.Controllers
 
             int FontPt = int.Parse(tempPt);
 
+            string tempstr = Card.Image.ImagePath;
+
+            tempstr = tempstr.Remove(0, 8);
+
             // Converting string to memorystream
-            byte[] imgpth = Encoding.ASCII.GetBytes(Card.Image.ImagePath.Remove(0, 23));
+            byte[] imgpth = Encoding.ASCII.GetBytes(tempstr);
             MemoryStream imgStream = new MemoryStream(imgpth);
 
             // converting string to memorystream
