@@ -43,7 +43,7 @@ namespace Christmas_Cards.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            CardModel cm = new CardModel { Image = new Images(), Emails = new List<EmailModel>()};
+            CardModel cm = new CardModel { Image = new Images(), Emails = new List<EmailModel>() };
             return View(cm);
         }
 
@@ -82,9 +82,9 @@ namespace Christmas_Cards.Controllers
                 {
                     //foreach (var email in MailList)
                     //{
-                        EmailModel email = new EmailModel { Email = "brouwerrowan@gmail.com", FirstName = "Rowan", LastName = "Brouwer" };
-                        string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
-                        ConvertToPdf(card, email, FontValueString);
+                    EmailModel email = new EmailModel { Email = "christiaanvergeer@gmail.com", FirstName = "Christiaan", LastName = "Vergeer" };
+                    string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
+                    ConvertToPdf(card, email, FontValueString);
                     //}
                 }
             }
@@ -97,8 +97,8 @@ namespace Christmas_Cards.Controllers
         {
             cardModel.Image.ImagePath = cardModel.Image.ImagePath.Remove(0, 23);
             cardModel.Image = db.Images.FirstOrDefault(i => i.ImagePath.EndsWith(cardModel.Image.ImagePath));
-           
-            
+
+
             if (ModelState.IsValid)
             {
                 if (_session.Keys.Count() > 0)
@@ -125,7 +125,7 @@ namespace Christmas_Cards.Controllers
                 else
                 {
                     return RedirectToAction("Email");
-                }                
+                }
             }
             return View("Index");
         }
@@ -138,74 +138,77 @@ namespace Christmas_Cards.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
+        public IActionResult ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
         {
-            string FontAdd = $"{Font}.ttf";
+            string FontAdd = Font.Remove(0, 1);
+            FontAdd = $"wwwroot{FontAdd}.ttf";
 
-            string tempPt = Card.FontSize.ToString().Remove(0 , 2);
+            string tempPt = Card.FontSize.ToString().Remove(0, 2);
 
             int FontPt = int.Parse(tempPt);
 
             string tempstr = Card.Image.ImagePath;
 
-            tempstr = tempstr.Remove(0, 8);
-
-            // Converting string to memorystream
-            byte[] imgpth = Encoding.ASCII.GetBytes(tempstr);
-            MemoryStream imgStream = new MemoryStream(imgpth);
-
-            // converting string to memorystream
-            byte[] Fontpth = Encoding.ASCII.GetBytes(FontAdd);
-            MemoryStream FontStream = new MemoryStream(Fontpth);
+            tempstr = $"wwwroot{tempstr}";
 
             //creating new Pdf file and page.
             PdfDocument document = new PdfDocument();
 
             PdfPage page = document.Pages.Add();
 
-            PdfBitmap image = new PdfBitmap(imgStream);
-
-            PdfGraphicsState state = page.Graphics.Save();
-
-            // drawing the picture on the background of the Pdf
-            page.Graphics.SetTransparency(0.0f);
-
-            page.Graphics.DrawImage(image, new PointF(0,0), new SizeF(page.GetClientSize().Width, page.GetClientSize().Height));
-
-            page.Graphics.Restore(state);
-
-            // creating the brush and font type for the text
-            PdfFont font = new PdfTrueTypeFont(FontStream, FontPt);
-
-            PdfColor color = new PdfColor(System.Drawing.ColorTranslator.FromHtml(Card.FontColour).ToArgb());
-
-            PdfSolidBrush brush = new PdfSolidBrush(color);
-
-            page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0, 0));
-
-            MemoryStream stream = new MemoryStream();
-
-            document.Save(stream);
-
-            document.Close(true);
-
-            stream.Position = 0;
-
-            // Sending the email
-            Attachment file = new Attachment(stream, $"{Card.Id}", $"Christmas_Cards/pdf");
-            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com") { Port = 587, Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#"), EnableSsl = true })
+            using (var sourceimg = System.IO.File.OpenRead($"{tempstr}"))
             {
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress("emailservicewebservice@gmail.com");
-                message.To.Add($"{PersonalMail.Email}");
-                message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
-                message.Attachments.Add(file);
-                message.IsBodyHtml = false;
-                message.Body = "Someone send you an anonymous christmascard!" + Environment.NewLine + $"Hope you enjoy {PersonalMail.FullName()}";
-                smtp.Send(message);
+                using (var sourcefont = System.IO.File.OpenRead($"{FontAdd}"))
+                {
+                    PdfBitmap image = new PdfBitmap(sourceimg);
+
+                    PdfGraphicsState state = page.Graphics.Save();
+
+                    // drawing the picture on the background of the Pdf
+                    page.Graphics.SetTransparency(0.0f);
+
+                    page.Graphics.DrawImage(image, new PointF(0, 0), new SizeF(page.GetClientSize().Width, page.GetClientSize().Height));
+
+                    page.Graphics.Restore(state);
+
+                    // creating the brush and font type for the text
+                    PdfFont font = new PdfTrueTypeFont(sourcefont, FontPt);
+
+                    PdfColor color = new PdfColor(System.Drawing.ColorTranslator.FromHtml(Card.FontColour).ToArgb());
+
+                    PdfSolidBrush brush = new PdfSolidBrush(color);
+
+                    page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0, 0));
+
+                    MemoryStream stream = new MemoryStream();
+
+                    document.Save(stream);
+
+                    document.Close(true);
+
+                    stream.Position = 0;
+
+                    // Sending the email
+                    Attachment file = new Attachment(stream, $"{Card.Id}.pdf", $"Christmas_Cards/pdf");
+
+                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        
+                        smtp.Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#");
+                        smtp.EnableSsl = true;
+                        MailMessage message = new MailMessage();
+                        message.From = new MailAddress("emailservicewebservice@gmail.com");
+                        message.To.Add($"{PersonalMail.Email}");
+                        message.Subject = $"Some one send you an X-Mas Card {PersonalMail.FullName()}";
+                        message.Attachments.Add(file);
+                        message.IsBodyHtml = false;
+                        message.Body = "Someone send you an anonymous christmascard!" + Environment.NewLine + $"Hope you enjoy {PersonalMail.FullName()}";
+                        smtp.Send(message);
+                    }
+                    return View("Index");
+                }
             }
 
-            
         }
     }
 }
