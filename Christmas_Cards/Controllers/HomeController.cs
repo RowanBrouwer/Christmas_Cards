@@ -82,13 +82,13 @@ namespace Christmas_Cards.Controllers
                 {
                     //foreach (var email in MailList)
                     //{
-                    EmailModel email = new EmailModel { Email = "christiaanvergeer@gmail.com", FirstName = "Christiaan", LastName = "Vergeer" };
+                    EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
                     string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
                     //}
                 }
             }
-            return View();
+            return View("Index");
         }
 
         [HttpPost]
@@ -138,7 +138,7 @@ namespace Christmas_Cards.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
+        public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
         {
             string FontAdd = Font.Remove(0, 1);
             FontAdd = $"wwwroot{FontAdd}.ttf";
@@ -165,20 +165,24 @@ namespace Christmas_Cards.Controllers
                     PdfGraphicsState state = page.Graphics.Save();
 
                     // drawing the picture on the background of the Pdf
-                    page.Graphics.SetTransparency(0.0f);
+                    page.Graphics.SetTransparency(1);
 
-                    page.Graphics.DrawImage(image, new PointF(0, 0), new SizeF(page.GetClientSize().Width, page.GetClientSize().Height));
+                    page.Graphics.DrawImage(image, new PointF(0, 0.2f), new SizeF(page.GetClientSize().Width, page.GetClientSize().Height));
 
                     page.Graphics.Restore(state);
 
                     // creating the brush and font type for the text
                     PdfFont font = new PdfTrueTypeFont(sourcefont, FontPt);
 
-                    PdfColor color = new PdfColor(System.Drawing.ColorTranslator.FromHtml(Card.FontColour).ToArgb());
+                    PdfColor color = new PdfColor(System.Drawing.ColorTranslator.FromHtml($"{Card.FontColour}").ToArgb());
 
                     PdfSolidBrush brush = new PdfSolidBrush(color);
 
-                    page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(0, 0));
+                    PdfStringFormat format = new PdfStringFormat();
+
+                    format.Alignment = PdfTextAlignment.Center;
+
+                    page.Graphics.DrawString($"{Card.Message}", font, brush, new PointF(page.GetClientSize().Width/2, FontPt), format);
 
                     MemoryStream stream = new MemoryStream();
 
@@ -193,8 +197,8 @@ namespace Christmas_Cards.Controllers
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
-                        
-                        smtp.Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#");
+
+                        smtp.Credentials = new NetworkCredential();
                         smtp.EnableSsl = true;
                         MailMessage message = new MailMessage();
                         message.From = new MailAddress("emailservicewebservice@gmail.com");
@@ -205,7 +209,6 @@ namespace Christmas_Cards.Controllers
                         message.Body = "Someone send you an anonymous christmascard!" + Environment.NewLine + $"Hope you enjoy {PersonalMail.FullName()}";
                         smtp.Send(message);
                     }
-                    return View("Index");
                 }
             }
 
