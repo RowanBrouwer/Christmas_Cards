@@ -40,6 +40,7 @@ namespace Christmas_Cards.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             CardModel cm = new CardModel { Image = new Images(), Emails = new List<EmailModel>()};
@@ -51,10 +52,35 @@ namespace Christmas_Cards.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Email()
         {
+            if (_session.Keys.Count() > 0)
+            {
+                foreach (var key in _session.Keys)
+                {
+                    cardslist.Add((CardModel)ByteArrayWorks.ByteArrayToObject(_session.Get($"{key}")));
+                }
+            }
+            return View(cardslist);
+        }
 
-            return View(db.Cards.Include(t => t.Image).ToList());
+        [HttpPost]
+        public IActionResult Email([Bind()] List<CardModel> Cards, List<EmailModel> MailList)
+        {
+            if (_session.Keys.Count() > 0)
+            {
+                foreach (var card in Cards)
+                {
+                    foreach (var email in MailList)
+                    {
+                        var Fontvalue = card.FontType.GetType();
+                        string FontValueString = $"~/fonts/{Fontvalue}";
+                        ConvertToPdf(card, email, FontValueString);
+                    }
+                }
+            }
+            return View();
         }
 
         [HttpPost]
@@ -90,7 +116,7 @@ namespace Christmas_Cards.Controllers
                 }
                 else
                 {
-                    return View("Email", cardslist);
+                    return View("Email");
                 }                
             }
             return View("Index");
@@ -104,7 +130,7 @@ namespace Christmas_Cards.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font, Color color)
+        public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
         {
             string FontAdd = $"{Font}.ttf";
 
@@ -138,6 +164,8 @@ namespace Christmas_Cards.Controllers
 
             // creating the brush and font type for the text
             PdfFont font = new PdfTrueTypeFont(FontStream, FontPt);
+
+            PdfColor color = new PdfColor(System.Drawing.ColorTranslator.FromHtml(Card.FontColour).ToArgb());
 
             PdfSolidBrush brush = new PdfSolidBrush(color);
 

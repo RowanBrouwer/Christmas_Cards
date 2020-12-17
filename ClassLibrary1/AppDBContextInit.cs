@@ -16,37 +16,37 @@ namespace Christmas_Cards.DAL
             {
                 Images image1 = new Images()
                 {
-                    ImagePath = "~/Images/1.jpg"
+                    ImagePath = "/Images/1.jpg"
                 };
                 images.Add(image1);
                 Images image2 = new Images()
                 {
-                    ImagePath = "~/Images/2.jpg"
+                    ImagePath = "/Images/2.jpg"
                 };
                 images.Add(image2);
                 Images image3 = new Images()
                 {
-                    ImagePath = "~/Images/3.jpg"
+                    ImagePath = "/Images/3.jpg"
                 };
                 images.Add(image3);
                 Images image4 = new Images()
                 {
-                    ImagePath = "~/Images/4.jpg"
+                    ImagePath = "/Images/4.jpg"
                 };
                 images.Add(image4);
                 Images image5 = new Images()
                 {
-                    ImagePath = "~/Images/5.jpg"
+                    ImagePath = "/Images/5.jpg"
                 };
                 images.Add(image5);
                 Images image6 = new Images()
                 {
-                    ImagePath = "~/Images/6.jpg"
+                    ImagePath = "/Images/6.jpg"
                 };
                 images.Add(image6);
                 Images WhiteSpace = new Images()
                 {
-                    ImagePath = "~/Images/WhiteSpace.jpg"
+                    ImagePath = "/Images/WhiteSpace.jpg"
                 };
                 images.Add(WhiteSpace);
                 foreach (var img in images)
@@ -82,7 +82,7 @@ namespace Christmas_Cards.DAL
                 {
                     CardModel card1 = new CardModel()
                     {
-                        FontType = FontType.the_perfect_christmas,
+                        FontType = FontType.ThePerfectChristmas,
                         Message = "Hello from the organised side",
                         Emails = TempEmails,
                         Image = db.Images.FirstOrDefault(i => i.Id == 2),
