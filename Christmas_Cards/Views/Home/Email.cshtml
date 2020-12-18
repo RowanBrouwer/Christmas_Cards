@@ -10,45 +10,62 @@
 
 
 <script type="text/javascript">
-   
+    var counter = 0;
 
-    function addEmail() {
-        var wut = "wut";
-        console.log(wut);
-        //var label = document.createElement('label')
-        //label.setAttribute("id", "label " + counter)
-        //console.log('counter:', counter);
-        //counter++;
-        //var email = document.getElementById("email " + identivier).value
-        //console.log('email:', email);
-        //label.setAttribute("value", email)
-        //console.log('identivier:', identivier)
-        //document.getElementById("div "+identivier).appendChild(label)
+    function addEmail(identivier) {
+        var label = document.createElement('input')
+        label.setAttribute("type", "button")
+        label.setAttribute("id", "label " + counter)
+        console.log('counter:', counter);
+        counter++;
+        var email = document.getElementById("email " + identivier).value
+        console.log('email:', email);
+        label.setAttribute("Value", email)
+        label.setAttribute("class", "btn btn - info")
+        label.setAttribute("asp-for", "card.email")
+        label.setAttribute("onclick", "removeEmail(id)")
+        //label.innerHTML = email
+        console.log('identivier:', identivier)
+        document.getElementById("div " + identivier).appendChild(label)
+
+        document.getElementById("email " + identivier).value = "";
+    }
+
+    function removeEmail(identiver) {
+        test = document.getElementById(identiver)
+        test.parentElement.removeChild(test)
     }
 
 </script>
 
-
-    @foreach (var card in Model)
+<body>
+    @using (Html.BeginForm())
     {
-        <div class="container">
-            <div class="row">
-                <div class="col-sm" style="text-align:right">
-                    <img src="@card.Image.ImagePath" width="100" height="140" />
-                </div>
-                <div id="div @card.Id" class="col-sm" style="text-align:left">
+        @Html.AntiForgeryToken()
 
-                </div>
-                <div class="col-sm" style="text-align:left">
-                    add Email Adress
-                    <input type="text" id="email @card.Id" />
-                    <input type="button" id="@card.Id" value="add email" class="btn btn-info" function="addEmail()" />
+
+        @foreach (var card in Model)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm" style="text-align:right">
+                        <img src="@card.Image.ImagePath" width="100" height="140" />
+                    </div>
+                    <div id="div @card.Id" class="col-sm" style="text-align:left; border: thin solid">
+
+                    </div>
+                    <div class="col-sm" style="text-align:left">
+                        Add an Email Adress
+                        <input type="text" id="email @card.Id" />
+                        <input type="button" id="@card.Id" value="add email" class="btn btn-info" onclick="addEmail(id)" />
+                        <br /><br />To remove an email click on it
+                    </div>
                 </div>
             </div>
+            <br />
+        }
+        <div class="col-sm" style="text-align:center">
+            <input type="submit" value="Send Cards" name="New" class="btn btn-primary" />
         </div>
     }
-    
-     <input type="button" value="add email" class="btn btn-info" function="addEmail()" />
-    
-
-    <input type="submit" value="verstuur kaarten" name="New" class="btn btn-primary" />
+</body>
