@@ -84,12 +84,12 @@ namespace Christmas_Cards.Controllers
                     //{
 
                     //}
-                    EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
+                    EmailModel email = new EmailModel { Email = "christiaanvergeer@gmail.com", FirstName = "Christiaan", LastName = "Vergeer" };
                     string FontValueString = $"/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
                 }
             }
-            return View("Index");
+            return View("Send");
         }
 
 
@@ -132,21 +132,6 @@ namespace Christmas_Cards.Controllers
             }
             return View("Index");
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Email( IEnumerable<CardModel> cardModels)
-        {
-            
-            if (ModelState.IsValid)
-            {
-
-            }
-            
-            return View("Send");
-        }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -213,7 +198,7 @@ namespace Christmas_Cards.Controllers
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
 
-                        smtp.Credentials = new NetworkCredential();
+                        smtp.Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#");
                         smtp.EnableSsl = true;
                         MailMessage message = new MailMessage();
                         message.From = new MailAddress("emailservicewebservice@gmail.com");

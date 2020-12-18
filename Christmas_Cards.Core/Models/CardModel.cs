@@ -32,13 +32,13 @@ namespace Christmas_Cards.Models
     public enum FontType
     {
         [Display(Name = "The Perfect Christmas")]
-        the_perfect_christmas,
+        ThePerfectChristmas,
         [Display(Name = "Christmabet")]
-        christmabet,
+        Christmabet,
         [Display(Name = "Christmas Lights")]
         ChristmasLightsOutdoor,
         [Display(Name = "Holly and Berries")]
-        holly_and_berries,
+        Holly_and_berries,
         [Display(Name = "Merry Christmas Flakes")]
         MerryChristmasFlake,
         [Display(Name = "Christmas Font")]
