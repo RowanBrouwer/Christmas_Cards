@@ -80,8 +80,10 @@ namespace Christmas_Cards.Controllers
             {
                 foreach (var card in cardslist)
                 {
-                    //foreach (var email in MailList)
+                    //foreach (var mail in card.Emails)
                     //{
+
+                    //}
                     EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
                     string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
