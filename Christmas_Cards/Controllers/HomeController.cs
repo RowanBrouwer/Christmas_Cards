@@ -87,7 +87,6 @@ namespace Christmas_Cards.Controllers
                     EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
                     string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
-                    //}
                 }
             }
             return View("Index");
