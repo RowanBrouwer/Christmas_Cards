@@ -93,6 +93,8 @@ namespace Christmas_Cards.Controllers
             return View("Index");
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind()] CardModel cardModel, string New)
@@ -130,6 +132,19 @@ namespace Christmas_Cards.Controllers
                 }
             }
             return View("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Email( IEnumerable<CardModel> cardModels)
+        {
+            
+            if (ModelState.IsValid)
+            {
+
+            }
+            
+            return View("Send");
         }
 
 

@@ -9,32 +9,63 @@
 }
 
 
-@foreach (var card in Model)
-{
-    <div class="container">
-        <div class="row">
-            <div class="col-sm" style="text-align:right">
-                <img src="@card.Image.ImagePath" width="100" height="140" />
-            </div>
-            <div id="div @card.Id" class="col-sm" style="text-align:left">
+<script type="text/javascript">
+    var counter = 0;
 
+    function addEmail(identivier) {
+        var label = document.createElement('input')
+        label.setAttribute("type", "button")
+        label.setAttribute("id", "label " + counter)
+        console.log('counter:', counter);
+        counter++;
+        var email = document.getElementById("email " + identivier).value
+        console.log('email:', email);
+        label.setAttribute("Value", email)
+        label.setAttribute("class", "btn btn - info")
+        label.setAttribute("asp-for", "card.email")
+        label.setAttribute("onclick", "removeEmail(id)")
+        //label.innerHTML = email
+        console.log('identivier:', identivier)
+        document.getElementById("div " + identivier).appendChild(label)
+
+        document.getElementById("email " + identivier).value = "";
+    }
+
+    function removeEmail(identiver) {
+        test = document.getElementById(identiver)
+        test.parentElement.removeChild(test)
+    }
+
+</script>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        @foreach (var card in Model)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm" style="text-align:right">
+                        <img src="@card.Image.ImagePath" width="100" height="140" />
+                    </div>
+                    <div id="div @card.Id" class="col-sm" style="text-align:left; border: thin solid">
+
+                    </div>
+                    <div class="col-sm" style="text-align:left">
+                        Add an Email Adress
+                        <input type="text" id="email @card.Id" />
+                        <input type="button" id="@card.Id" value="add email" class="btn btn-info" onclick="addEmail(id)" />
+                        <br /><br />To remove an email click on it
+                    </div>
+                </div>
             </div>
-            <div class="col-sm" style="text-align:left">
-                add Email Adress
-                <input type="text" />
-                <input type="button" id="@card.Id" value="add email" class="btn btn-info" function="addEmail()" />
-            </div>
+            <br />
+        }
+        <div class="col-sm" style="text-align:center">
+            <input type="submit" value="Send Cards" name="New" class="btn btn-primary" />
         </div>
-    </div>
-}
-
-<div>
-    <form method="post">
-        <button class="btn btn-dark"
-                type="submit">
-            Verstuur!
-        </button>
-    </form>
-</div>
-
-
+    }
+</body>
