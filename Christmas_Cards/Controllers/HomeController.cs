@@ -198,7 +198,7 @@ namespace Christmas_Cards.Controllers
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
 
-                        smtp.Credentials = new NetworkCredential();
+                        smtp.Credentials = new NetworkCredential("");
                         smtp.EnableSsl = true;
                         MailMessage message = new MailMessage();
                         message.From = new MailAddress("emailservicewebservice@gmail.com");
