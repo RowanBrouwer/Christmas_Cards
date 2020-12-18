@@ -85,7 +85,7 @@ namespace Christmas_Cards.Controllers
 
                     //}
                     EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
-                    string FontValueString = $"~/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
+                    string FontValueString = $"/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
                 }
             }
@@ -156,8 +156,7 @@ namespace Christmas_Cards.Controllers
 
         public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
         {
-            string FontAdd = Font.Remove(0, 1);
-            FontAdd = $"wwwroot{FontAdd}.ttf";
+            string FontAdd = $"wwwroot{FontAdd}.ttf";
 
             string tempPt = Card.FontSize.ToString().Remove(0, 2);
 
