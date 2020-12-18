@@ -156,7 +156,7 @@ namespace Christmas_Cards.Controllers
 
         public void ConvertToPdf(CardModel Card, EmailModel PersonalMail, string Font)
         {
-            string FontAdd = $"wwwroot{FontAdd}.ttf";
+            FontAdd = $"wwwroot{Font}.ttf";
 
             string tempPt = Card.FontSize.ToString().Remove(0, 2);
 
