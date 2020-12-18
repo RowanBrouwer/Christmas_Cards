@@ -84,7 +84,7 @@ namespace Christmas_Cards.Controllers
                     //{
 
                     //}
-                    EmailModel email = new EmailModel { Email = "christiaanvergeer@gmail.com", FirstName = "Christiaan", LastName = "Vergeer" };
+                    EmailModel email = new EmailModel { Email = "", FirstName = "", LastName = "" };
                     string FontValueString = $"/fonts/{card.FontType.GetType().GetEnumName(card.FontType)}";
                     ConvertToPdf(card, email, FontValueString);
                 }
@@ -198,7 +198,7 @@ namespace Christmas_Cards.Controllers
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
 
-                        smtp.Credentials = new NetworkCredential("emailservicewebservice@gmail.com", "T3St3R!#");
+                        smtp.Credentials = new NetworkCredential();
                         smtp.EnableSsl = true;
                         MailMessage message = new MailMessage();
                         message.From = new MailAddress("emailservicewebservice@gmail.com");
